@@ -3,19 +3,13 @@ import api from "../api.js"
 export default {
     template: `
         <div class="border p-2 mx-2 rounded">
-            Lista de itens
+            Lista de itens (FILMES)
             <div class="border rounded px-2 my-2 bg-gray-100">
                 <div class="my-2">
                     <span>ID:</span> <input type="text" v-model="id">
                 </div>
                 <div class="my-2">
                     <span>Name:</span> <input type="text" v-model="name">
-                </div>
-                <div class="my-2">
-                    <span>Country:</span> <input type="text" v-model="country">
-                </div>
-                <div class="my-2">
-                    <span>Style:</span> <input type="text" v-model="style">
                 </div>
                 <button @click="reqPOST" class="text-sm border rounded bg-gray-50 px-1 ml-2">
                     <span style="font-size: 9pt;">➕</span>
@@ -37,14 +31,6 @@ export default {
                         <span class="mx-1 font-bold">name:</span>
                         <span>{{elem.name}}</span>
                     </div>
-                    <div class="col-span-2">
-                        <span class="mx-1 font-bold">country:</span>
-                        <span>{{elem.country}}</span>
-                    </div>
-                    <div class="col-span-2">
-                        <span class="mx-1 font-bold">style:</span>
-                        <span>{{elem.style}}</span>
-                    </div>
                     <div class="col-span-1">
                         <button @click="atualizar(elem.id)" class="text-xs border rounded bg-red-300 px-1 ml-2">
                             <span style="font-size: 7pt;"></span> atualizar
@@ -64,14 +50,12 @@ export default {
             lista: {},
             id: "",
             name: "",
-            country: "",
-            style: ""
         }
     },
     mounted() {
         // Função chamada sempre que o componente é montado na página
         let self = this;
-        api.get("bandas", function (data) {
+        api.get("filmes", function (data) {
             self.lista = data;
         });
     },
@@ -79,7 +63,7 @@ export default {
 
         reqDELETE(id) {
             console.log(id);
-            api.delete("bandas", id, function (data) {
+            api.delete("filme", id, function (data) {
                 console.log(data);
             })
         },
@@ -88,10 +72,8 @@ export default {
             let data = {
                 id: this.id,
                 name: this.name,
-                country: this.country,
-                style: this.style
             }
-            api.post("bandas", data, function (data) {
+            api.post("filmes", data, function (data) {
                 console.log(data);
             })
         },
@@ -102,18 +84,14 @@ export default {
             console.log(elem);
             this.id = elem.id;
             this.name = elem.name;
-            this.country = elem.country;
-            this.style = elem.style;
         },
 
         reqPut() {
             let data = {
                 id: this.id,
                 name: this.name,
-                country: this.country,
-                style: this.style
             }
-            api.put("bandas", data, function (data) {
+            api.put("filmes", data, function (data) {
                 console.log(data);
             })
 

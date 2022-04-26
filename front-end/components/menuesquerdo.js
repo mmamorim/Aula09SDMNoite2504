@@ -2,10 +2,10 @@
 export default {
     template: `
         <div> 
-            <button class="w-full text-xs border rounded bg-gray-50 p-1 mx-1">Bandas (GET)</button>
+            <button @click="clickMenu('bandas')" class="w-full text-xs border rounded bg-gray-50 p-1 mx-1">Bandas (GET)</button>
         </div>
         <div> 
-            <button class="w-full text-xs border rounded bg-gray-50 p-1 mx-1">Filmes (GET)</button>
+            <button @click="clickMenu('filmes')" class="w-full text-xs border rounded bg-gray-50 p-1 mx-1">Filmes (GET)</button>
         </div>
     `,
     data() {
@@ -18,5 +18,9 @@ export default {
     },
     methods: {
         
+        clickMenu(txt) {
+            //console.log(txt);
+            this.$emit('menuChange',txt)
+        }
     }
 }

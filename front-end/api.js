@@ -32,8 +32,8 @@ export default {
 
     post(route, data, cbfunc) {
         let bodyFormData = new URLSearchParams();
-        for(let key in data) {
-            bodyFormData.append(key, data[key]);    
+        for (let key in data) {
+            bodyFormData.append(key, data[key]);
         }
         axios({
             method: "post",
@@ -49,8 +49,9 @@ export default {
     },
 
     put(route, data, cbfunc) {
-        for(let key in data) {
-            bodyFormData.append(key, data[key]);    
+        let bodyFormData = new URLSearchParams();
+        for (let key in data) {
+            bodyFormData.append(key, data[key]);
         }
         axios({
             method: "put",

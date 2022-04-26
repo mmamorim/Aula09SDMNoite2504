@@ -3,7 +3,7 @@ import api from "../api.js"
 export default {
     template: `
         <div class="border p-2 mx-2 rounded">
-            Lista de itens
+            Lista de itens (BANDAS)
             <div class="border rounded px-2 my-2 bg-gray-100">
                 <div class="my-2">
                     <span>ID:</span> <input type="text" v-model="id">

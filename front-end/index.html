@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste API Bandas e filmes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
@@ -15,130 +14,13 @@
 
     <div id="app">
 
-        <h1 class="text-2xl bg-gray-50 p-3 mb-2">
-            {{titulo}}
-        </h1>
-
-
-        <button @click="reqGET" class="border rounded bg-gray-50 p-1 mx-1">Pegar bandas (GET)</button>
-        <button @click="reqPOST" class="border rounded bg-gray-50 p-1 mx-1">Incluir bandas (POST)</button>
-        <button @click="reqPUT" class="border rounded bg-gray-50 p-1 mx-1">Alterar bandas (PUT)</button>
-
-        <div class="grid grid-cols-3 justify-start px-2">
-            <div class="border rounded px-2 my-2 bg-gray-100">
-                Resposta do servidor:
-                <div class="border rounded px-2 my-2 bg-white">
-                    {{mensagem}}
-                    <div class="border rounded px-2 my-2 bg-white">
-                        <div v-for="(elem,index,key) in lista" :key="key">
-                            <span class="mr-1 font-bold">id:</span>
-                            <span>{{elem.id}}</span>
-                            <span class="mx-1 font-bold">name:</span>
-                            <span>{{elem.name}}</span>
-                            <button @click="reqDELETE(elem.id)" class="text-xs border rounded bg-red-300 px-1 ml-2">
-                                <span style="font-size: 7pt;">❌</span> excluir
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border rounded px-2 my-2 bg-gray-100">
-                <div class="my-2">
-                    <span>ID:</span> <input type="text" v-model="id">
-                </div>
-                <div class="my-2">
-                    <span>Name:</span> <input type="text" v-model="name">
-                </div>
-                <button @click="reqPOST" class="text-sm border rounded bg-gray-50 px-1 ml-2">
-                    <span style="font-size: 9pt;">➕</span>
-                    Incluir (POST)
-                </button>
-            </div>
-        </div>
+        <topo></topo>
+        <corpo></corpo>
 
     </div>
 
 
-    <script>
-
-        Vue.createApp({
-            data() {
-                return {
-                    titulo: 'Teste API',
-                    mensagem: "sem mensagem....",
-                    lista: {},
-                    id: "",
-                    name: ""
-                }
-            },
-            mounted() {
-                this.reqGET();
-            },
-            methods: {
-                reqGET() {
-                    let self = this;
-                    console.log("cliquei no botão GET");
-                    this.mensagem = "GET";
-                    axios.get('http://localhost:4050/api/v1/filmes')
-                        .then(function (response) {
-                            console.log(response.data);
-                            self.lista = response.data;
-                            //self.mensagem = JSON.stringify(response.data);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                },
-                reqPOST() {
-                    let self = this;
-                    console.log("cliquei no botão POST");
-                    this.mensagem = "POST";
-                    console.log("id", this.id);
-                    console.log("name", this.name);
-                    let bodyFormData = new URLSearchParams();
-                    bodyFormData.append('id', this.id);
-                    bodyFormData.append('name', this.name);
-                    axios({
-                        method: "post",
-                        url: "http://localhost:4050/api/v1/filmes",
-                        data: bodyFormData,
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    }).then(function (response) {
-                        console.log(response.data);
-                        self.mensagem = "POST ok!";
-                        self.lista = response.data;
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                },
-                reqPUT() {
-                    console.log("cliquei no botão PUT");
-                    this.mensagem = "PUT";
-                },
-                reqDELETE(id) {
-                    let self = this;
-                    console.log("cliquei no botão DELETE", id);
-                    this.mensagem = "DELETE";
-                    let bodyFormData = new URLSearchParams();
-                    bodyFormData.append('id', id);
-                    axios({
-                        method: "delete",
-                        url: "http://localhost:4050/api/v1/filmes",
-                        data: bodyFormData,
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    }).then(function (response) {
-                        console.log(response.data);
-                        self.mensagem = "POST ok!";
-                        self.lista = response.data;
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-
-                }
-            }
-        }).mount('#app')
-    </script>
+    <script src="./main.js" type="module"></script>
 </body>
 
 </html>
